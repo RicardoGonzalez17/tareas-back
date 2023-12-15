@@ -3,9 +3,7 @@ const Tarea = require('../models/tareaModels')
 
 const getTareas = asyncHandler (async (req, res)=>{
     const tareas = await Tarea.find({user: req.user._id})
-    res.status(200).json({
-        tareas
-     })
+    res.status(200).json(tareas)
 })
 
 const createTarea = asyncHandler (async (req,res) => {
@@ -16,9 +14,7 @@ const createTarea = asyncHandler (async (req,res) => {
         texto: req.body.texto,
         user: req.user._id
     })
-    res.status(201).json({
-       tarea
-     })
+    res.status(201).json(tarea)
 })
 
 const updateTarea = asyncHandler (async (req, res) => {
@@ -39,9 +35,7 @@ const updateTarea = asyncHandler (async (req, res) => {
 
     const updatedTarea = await Tarea.findByIdAndUpdate(req.params.id, req.body, {new:true})
 
-    res.status(200).json({
-        updatedTarea
-     })
+    res.status(200).json(updatedTarea)
 })
 
 const deleteTarea = asyncHandler (async (req, res) => {
@@ -61,7 +55,7 @@ const deleteTarea = asyncHandler (async (req, res) => {
         await Tarea.deleteOne(tarea);
     }
     res.status(200).json({
-        message: `Se eliminó la tarea ${req.params.id}`
+        id: req.params.id
      })
 })
 
